@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:todoe/widgets/task_list.dart';
 
+import '../models/task.dart';
 import 'add_task_screen.dart';
 
 class TaskScreen extends StatefulWidget {
-  const TaskScreen({super.key});
 
   @override
   State<TaskScreen> createState() => _TaskScreenState();
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasks = [
+    Task(name: "Learn State Management"),
+    Task(name: "Learn 100 secs of REST Api"),
+    Task(name: "Sleep before 10pm"),
+  ];
 
   bool isChecked = false;
 
@@ -26,7 +31,13 @@ class _TaskScreenState extends State<TaskScreen> {
               builder: (context) => SingleChildScrollView(
                   child: Container(
                     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen(),
+                      child: AddTaskScreen(
+                        tasks: tasks,
+                        addTaskCallback: (value) {
+                          setState(() {
+                            tasks.add(Task(name: value));
+                          });                        }
+                      ),
                   ),
               ),
           );
@@ -62,7 +73,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                 ),
                 Text(
-                  "12 Tasks",
+                  "${tasks.length} Tasks",
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ],
@@ -79,7 +90,9 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
               ),
 
-              child: TaskList(),
+              child: TaskList(
+                tasks: tasks,
+              ),
             ),
           ),
         ],
