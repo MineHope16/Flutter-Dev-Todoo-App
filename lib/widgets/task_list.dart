@@ -1,10 +1,22 @@
 import "package:flutter/material.dart";
 import "package:todoe/widgets/task_tile.dart";
 
-class TaskList extends StatelessWidget {
+import "../models/task.dart";
+
+class TaskList extends StatefulWidget {
   TaskList({super.key});
 
-  late bool isChecked;
+  @override
+  State<TaskList> createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
+
+  List<Task> tasks = [
+    Task(name: "Learn State Management"),
+    Task(name: "Learn 100 secs of REST Api"),
+    Task(name: "Sleep before 10pm"),
+  ];
 
   @override
   Widget build(BuildContext context) {
