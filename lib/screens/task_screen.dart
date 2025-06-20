@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoe/widgets/task_list.dart';
-
-import '../models/task.dart';
+import '../models/tasks_data.dart';
 import 'add_task_screen.dart';
 
-class TaskScreen extends StatefulWidget {
-
-  @override
-  State<TaskScreen> createState() => _TaskScreenState();
-}
-
-class _TaskScreenState extends State<TaskScreen> {
-  List<Task> tasks = [
-    Task(name: "Learn State Management"),
-    Task(name: "Learn 100 secs of REST Api"),
-    Task(name: "Sleep before 10pm"),
-  ];
-
-  bool isChecked = false;
+class TaskScreen extends StatelessWidget {
+  const TaskScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +20,12 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Container(
                     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: AddTaskScreen(
-                        tasks: tasks,
                         addTaskCallback: (value) {
-                          setState(() {
-                            tasks.add(Task(name: value));
-                          });                        }
+                          // setState(() {
+                          //   tasks.add(Task(name: value));
+                          // });
+                          Navigator.pop(context);
+                        }
                       ),
                   ),
               ),
@@ -73,7 +62,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                 ),
                 Text(
-                  "${tasks.length} Tasks",
+                  "${Provider.of<TaskData>(context).taskCount} Tasks",
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ],
@@ -90,9 +79,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
               ),
 
-              child: TaskList(
-                tasks: tasks,
-              ),
+              child: TaskList(),
             ),
           ),
         ],

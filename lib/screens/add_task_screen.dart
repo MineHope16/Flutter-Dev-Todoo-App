@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  late final List<Task> tasks;
   late final Function addTaskCallback;
-  AddTaskScreen({required this.tasks, required this.addTaskCallback});
+  AddTaskScreen({required this.addTaskCallback});
 
   @override
   Widget build(BuildContext context) {
